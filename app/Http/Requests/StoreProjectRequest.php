@@ -41,6 +41,7 @@ class StoreProjectRequest extends FormRequest
         return [
             'title.required' => 'Il titolo è richiesto',
             'title.max' => 'Il titolo deve essere lungo massimo :max caratteri',
+            'type_id.exists' => 'Il valore selezionato per :attribute non esiste.',
         ];
     }
 }
