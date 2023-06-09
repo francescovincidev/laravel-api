@@ -33,7 +33,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologys = Technology::all();
+        return view('admin.projects.create', compact('types', 'technologys'));
     }
 
     /**
@@ -47,6 +48,11 @@ class ProjectController extends Controller
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title']);
         $project = Project::create($data);
+
+        if ($request->has('technologys')) {
+            $project->technologys()->attach($request->technologys);
+        }
+
         return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato creato");
     }
 
@@ -88,8 +94,16 @@ class ProjectController extends Controller
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title']);
         $project->update($data);
+
+        if ($request->has('technologys')) {
+            $project->technologys()->sync($request->technologys);
+        } else {
+            $project->technologys()->detach();
+        }
         return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato modificato con successo");
     }
+
+
 
     /**
      * Remove the specified resource from storage.

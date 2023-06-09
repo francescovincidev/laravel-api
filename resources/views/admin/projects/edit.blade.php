@@ -37,9 +37,11 @@
         <div class="mb-3">
             @foreach ($technologys as $technology)
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="technology_id" value="{{ $technology->id }}"
-                        id="{{ $technology->name }}" @checked($technology->id)>
-                    <label class="form-check-label" for="{{ $technology->name }}">
+                    <input class="form-check-input" type="checkbox" name="technologys[]" value="{{ $technology->id }}"
+                        id="technology-{{ $technology->id }}" @checked(old('technologys')
+                                ? in_array($technology->id, old('technologys', []))
+                                : $project->technologys->contains($technology))>
+                    <label class="form-check-label" for="technology-{{ $technology->name }}">
                         {{ $technology->name }}
                     </label>
                 </div>
