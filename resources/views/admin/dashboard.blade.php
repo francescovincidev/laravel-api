@@ -1,5 +1,5 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h2>hello admin</h2>
+    <h1>Hello {{ $user->name }}</h1>
 @endsection
