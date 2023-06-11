@@ -20,7 +20,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="type">Tipo</label>
+            <label for="type" class="form-label">Tipo</label>
             <select class="form-select @error('type_id') is-invalid @enderror" id="type" name="type_id">
                 <option value=""></option>
                 @foreach ($types as $type)
@@ -35,6 +35,7 @@
         </div>
 
         <div class="mb-3">
+            <label for="" class="form-label">Tecnologie</label>
             @foreach ($technologys as $technology)
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="technologys[]" value="{{ $technology->id }}"
@@ -46,6 +47,11 @@
                     </label>
                 </div>
             @endforeach
+            @error('technologys')
+                <div class="text-danger">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <div class="mb-3">
