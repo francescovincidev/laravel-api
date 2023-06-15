@@ -21,3 +21,5 @@ use Illuminate\Support\Facades\Route;
 
 // creamo la rotta api/projects che ci dara quello che inseriamo in ProjectController nella funzione index
 Route::get('projects', [ProjectController::class, 'index']);
+
+Route::get('projects/{slug}', [ProjectController::class, 'show']);
