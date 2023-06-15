@@ -22,9 +22,16 @@ class ProjectController extends Controller
     {
         $projects = Project::with('type', 'technologys')->where('slug', $slug)->first(); //per passare lo slug
         // restituiamo lo slug
-        return response()->json([
-            'success' => true,
-            'results' => $projects
-        ]);
+        if ($projects) {
+            return response()->json([
+                'success' => true,
+                'results' => $projects
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'error' => 'Nessun progetto trovato'
+            ]);
+        }
     }
 }
