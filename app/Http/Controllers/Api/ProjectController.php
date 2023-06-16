@@ -8,9 +8,17 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::with('type', 'technologys')->paginate(10); //aggiungiamo le tabelle type e techonlogy, in questo caso dobbiamo sempre mettere get o paginate se volgiamo la divisione in pagine
+        // per òa ricerca tramite type_id
+        if ($request->has('type_id')) {
+            $projects = Project::with('type', 'technologys')->where('type_id', $request->type_id)->paginate(10); //aggiungiamo le tabelle type e techonlogy, in questo caso dobbiamo sempre mettere get o paginate se volgiamo la divisione in pagine
+
+        } else {
+
+            $projects = Project::with('type', 'technologys')->paginate(10); //aggiungiamo le tabelle type e techonlogy, in questo caso dobbiamo sempre mettere get o paginate se volgiamo la divisione in pagine
+        }
+
         // restituiamo i nostri proggetti in json
         return response()->json([
             'success' => true,
